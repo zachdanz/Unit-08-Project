@@ -1,0 +1,86 @@
+//====================================//
+//                Main                //
+//====================================//
+
+body {
+    position: relative;
+    background-color: $color-background;
+    max-width: $max-width;
+    margin: auto;
+    padding: 10px;
+}
+
+h1 {
+    font-size: 16px;
+    color: $color-primary-text;
+    text-transform: capitalize;
+}
+
+//====================================//
+//                Card                //
+//====================================//
+
+.card {
+    background-color: $white;
+    display: flex;
+    border: 2px solid $color-border;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.text-container h2, 
+.text-container p{
+    text-align: left;
+}
+
+.card h2 {
+    color: $color-primary-text;
+    font-size: 16px;
+}
+
+.card p {
+    color: $color-secondary-text;
+    font-size: 12px;
+}
+
+.avatar{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+//====================================//
+//              Overlay               //
+//====================================//
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(100, 100, 100, 0.4)
+}
+
+.modal {
+    width: 375px;
+    margin: 15% auto auto;
+    position: relative;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #778;
+    border-radius: 5px;
+    padding: 30px 20px;
+}
+
+.modal-close {
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}

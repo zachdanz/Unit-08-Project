@@ -28,8 +28,8 @@ h1 {
     padding: 10px;
 }
 
-.text-container h2, 
-.text-container p{
+.card h2, 
+.card p{
     text-align: left;
 }
 
@@ -77,10 +77,21 @@ h1 {
 .modal-close {
     position: absolute;
     right: 15px;
-    top: 5px;
+    top: 15px;
     cursor: pointer;
+    border: none;
+    background-color: white;
 }
 
 .hidden {
     display: none;
+}
+
+.modal-content h2,
+.modal-content p {
+    text-align: center;
+}
+
+.modal-content p {
+    color: $color-secondary-text;
 }

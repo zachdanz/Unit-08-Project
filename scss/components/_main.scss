@@ -5,15 +5,16 @@
 body {
     position: relative;
     background-color: $color-background;
-    max-width: $max-width;
-    margin: auto;
-    padding: 10px;
 }
 
 h1 {
     font-size: 16px;
     color: $color-primary-text;
     text-transform: capitalize;
+    margin: 0 auto;
+    padding: 1.5em 0;
+    position: relative;
+    left: 380px;
 }
 
 //====================================//
@@ -25,7 +26,7 @@ h1 {
     display: flex;
     border: 2px solid $color-border;
     border-radius: 5px;
-    padding: 10px;
+    padding: 15px;
 }
 
 .card h2, 
@@ -48,6 +49,7 @@ h1 {
     height: 80px;
     border-radius: 50%;
     margin-right: 10px;
+    margin: auto 10px;
 }
 
 //====================================//
@@ -60,7 +62,11 @@ h1 {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(100, 100, 100, 0.4)
+    background: rgba(100, 100, 100, 0.4);
+}
+
+.grey {
+    background-color: rgba(100, 100, 100, 0.4);
 }
 
 .modal {

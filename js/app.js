@@ -5,6 +5,7 @@ const gridContainer = document.querySelector(".grid-container");
 const overlay = document.querySelector(".overlay");
 const modalContainer = document.querySelector(".modal-content");
 const modalClose = document.querySelector(".modal-close");
+const body = document.querySelector("body");
 
 // Fetch data from API
 
@@ -62,6 +63,7 @@ function displayModal(index) {
     `;
 
     overlay.classList.remove("hidden");
+    body.classList.add("gray");
     modalContainer.innerHTML = modalHTML;
 }
 
@@ -79,5 +81,6 @@ gridContainer.addEventListener('click', e => {
 
 modalClose.addEventListener('click', () => {
     overlay.classList.add("hidden");
+    body.classList.remove("gray");
 });
 

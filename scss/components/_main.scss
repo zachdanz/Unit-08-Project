@@ -35,6 +35,11 @@ h1 {
     border: 2px solid $color-border;
     border-radius: 5px;
     padding: 15px;
+    transition: ease-in .1s;
+}
+
+.card:hover{
+    transform: scale(1.05);
 }
 
 .card h2, 
@@ -95,6 +100,7 @@ h1 {
     cursor: pointer;
     border: none;
     background-color: white;
+    font-size: 25px;
 }
 
 .hidden {
@@ -108,4 +114,22 @@ h1 {
 
 .modal-content p {
     color: $color-secondary-text;
+}
+
+.arrow {
+    width: 150px;
+    position: absolute;
+    display: block;
+    z-index: 5;
+    cursor: pointer;
+}
+
+.left{
+    left: 25%;
+    top: 40%;
+}
+
+.right{
+    right: 25%;
+    top: 40%;
 }

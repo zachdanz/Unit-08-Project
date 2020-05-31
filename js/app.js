@@ -7,7 +7,9 @@ const modalContainer = document.querySelector(".modal-content");
 const modalClose = document.querySelector(".modal-close");
 const body = document.querySelector("body");
 
-// Fetch data from API
+// ====================== //
+//   Fetch data from API  //
+// ====================== //
 
 fetch(urlAPI)
     .then(res => res.json())
@@ -42,6 +44,10 @@ function displayEmployees(employeeData) {
     gridContainer.innerHTML = employeeHTML;
 }
 
+// ================ //
+//   Display Modal  //
+// ================ //
+
 function displayModal(index) {
     // use object destructuring make our template literal cleaner
     let { name, dob, phone, email, location: { city, street, state, postcode}, picture } = employees[index];
@@ -65,6 +71,8 @@ function displayModal(index) {
     overlay.classList.remove("hidden");
     body.classList.add("gray");
     modalContainer.innerHTML = modalHTML;
+
+
 }
 
 gridContainer.addEventListener('click', e => {
@@ -84,17 +92,37 @@ modalClose.addEventListener('click', () => {
     body.classList.remove("gray");
 });
 
-// Search
+if (!overlay.classList.contains("hidden")) {
+    overlay.addEventListener('click', () => {
+        overlay.classList.add("hidden");
+        body.classList.remove("gray");
+    });
+}
+
+// ================================= //
+//  Navigate between cards in modal  //
+// ================================= //
+
+const leftArrow = document.querySelector(".left");
+const rightArrow = document.querySelector(".right");
+
+leftArrow.addEventListener("click", () => {
+    
+});
+
+// ========== //
+//   Search   //
+// ========== //
 
 let search = document.getElementById('search');
 let card = document.getElementsByClassName('card');
-let empName = document.querySelector('.name')
+let empName = document.getElementsByClassName('name');
 
 search.addEventListener('keyup', () => {
     const input = search.value.toLowerCase();
 
-    for (let i = 0; i < card.length; i += 1) {
-        if (empName[i].toLowerCase().indexOf(input) > -1) {
+    for (let i = 0; i < empName.length; i += 1) {
+        if (empName[i].textContent.toLowerCase().indexOf(input) > -1) {
             card[i].style.display = "";
             } else {
             card[i].style.display = "none";

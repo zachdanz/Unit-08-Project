@@ -7,14 +7,22 @@ body {
     background-color: $color-background;
 }
 
+header{
+    display: flex;
+    justify-content: space-around;;
+}
+
 h1 {
+    display: inline-block;
     font-size: 16px;
     color: $color-primary-text;
     text-transform: capitalize;
-    margin: 0 auto;
     padding: 1.5em 0;
-    position: relative;
-    left: 380px;
+}
+
+#search {
+    margin: 1.5em 0;
+    width: 250px;
 }
 
 //====================================//

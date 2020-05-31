@@ -84,3 +84,28 @@ modalClose.addEventListener('click', () => {
     body.classList.remove("gray");
 });
 
+// Search
+
+let search = document.getElementById('search');
+let card = document.getElementsByClassName('card');
+let empName = document.querySelector('.name')
+
+search.addEventListener('keyup', () => {
+    const input = search.value.toLowerCase();
+
+    for (let i = 0; i < card.length; i += 1) {
+        if (empName[i].toLowerCase().indexOf(input) > -1) {
+            card[i].style.display = "";
+            } else {
+            card[i].style.display = "none";
+            }
+    }
+});
+
+search.addEventListener('search', () => {
+    if (event.target.value === '') {
+      for (let i = 0; i < card.length; i += 1) {
+        card[i].style.display = "";
+      }
+    }
+  });

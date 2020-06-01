@@ -6,6 +6,7 @@ const overlay = document.querySelector(".overlay");
 const modalContainer = document.querySelector(".modal-content");
 const modalClose = document.querySelector(".modal-close");
 const body = document.querySelector("body");
+const card = document.querySelectorAll(".card");
 
 // ====================== //
 //   Fetch data from API  //
@@ -42,6 +43,7 @@ function displayEmployees(employeeData) {
     });
 
     gridContainer.innerHTML = employeeHTML;
+    
 }
 
 // ================ //
@@ -72,7 +74,19 @@ function displayModal(index) {
     body.classList.add("gray");
     modalContainer.innerHTML = modalHTML;
 
+    function displayPrev() {
+        displayModal([index-1]);
+    }
 
+    function displayNext() {
+        displayModal([index+1]);
+    }
+
+    const leftArrow = document.querySelector(".left");
+    const rightArrow = document.querySelector(".right");
+
+    leftArrow.addEventListener("click", displayPrev);
+    rightArrow.addEventListener("click", displayNext);
 }
 
 gridContainer.addEventListener('click', e => {
@@ -80,8 +94,8 @@ gridContainer.addEventListener('click', e => {
     if (e.target !== gridContainer) {
     
         // select the card element based on its proximity to actual element clicked
-        const card = e.target.closest(".card");
-        const index = card.getAttribute('data-index');
+        const cardIndex = e.target.closest(".card");
+        const index = cardIndex.getAttribute('data-index');
     
         displayModal(index);
     }
@@ -103,19 +117,14 @@ if (!overlay.classList.contains("hidden")) {
 //  Navigate between cards in modal  //
 // ================================= //
 
-const leftArrow = document.querySelector(".left");
-const rightArrow = document.querySelector(".right");
 
-leftArrow.addEventListener("click", () => {
-    
-});
 
 // ========== //
 //   Search   //
 // ========== //
 
 let search = document.getElementById('search');
-let card = document.getElementsByClassName('card');
+// let card = document.getElementsByClassName('card');
 let empName = document.getElementsByClassName('name');
 
 search.addEventListener('keyup', () => {

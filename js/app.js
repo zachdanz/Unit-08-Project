@@ -6,7 +6,7 @@ const overlay = document.querySelector(".overlay");
 const modalContainer = document.querySelector(".modal-content");
 const modalClose = document.querySelector(".modal-close");
 const body = document.querySelector("body");
-const card = document.querySelectorAll(".card");
+let index = [0];
 
 // ====================== //
 //   Fetch data from API  //
@@ -43,7 +43,6 @@ function displayEmployees(employeeData) {
     });
 
     gridContainer.innerHTML = employeeHTML;
-    
 }
 
 // ================ //
@@ -73,20 +72,7 @@ function displayModal(index) {
     overlay.classList.remove("hidden");
     body.classList.add("gray");
     modalContainer.innerHTML = modalHTML;
-
-    function displayPrev() {
-        displayModal([index-1]);
-    }
-
-    function displayNext() {
-        displayModal([index+1]);
-    }
-
-    const leftArrow = document.querySelector(".left");
-    const rightArrow = document.querySelector(".right");
-
-    leftArrow.addEventListener("click", displayPrev);
-    rightArrow.addEventListener("click", displayNext);
+    console.log(index);
 }
 
 gridContainer.addEventListener('click', e => {
@@ -95,23 +81,50 @@ gridContainer.addEventListener('click', e => {
     
         // select the card element based on its proximity to actual element clicked
         const cardIndex = e.target.closest(".card");
-        const index = cardIndex.getAttribute('data-index');
+        index = cardIndex.getAttribute('data-index');
     
         displayModal(index);
+
+        function displayPrev() {
+            displayModal([index-1]);
+        }
+    
+        function displayNext() {
+            displayModal([index+1]);
+        }
+    
+        const leftArrow = document.querySelector(".left");
+        const rightArrow = document.querySelector(".right");
+    
+        leftArrow.addEventListener("click", () => {
+            if (employees[index] > 0) {
+                displayPrev();
+            } else {
+                displayModal(employees[11]);
+            }
+    
+        });
+        
+        rightArrow.addEventListener("click", displayNext);
     }
 });
 
-modalClose.addEventListener('click', () => {
+
+
+function closeModal() {
     overlay.classList.add("hidden");
     body.classList.remove("gray");
-});
-
-if (!overlay.classList.contains("hidden")) {
-    overlay.addEventListener('click', () => {
-        overlay.classList.add("hidden");
-        body.classList.remove("gray");
-    });
 }
+
+modalClose.addEventListener('click', closeModal);
+// overlay.addEventListener('click', () => {
+//     const click = e.target;
+//     if (!overlay.classList.contains("hidden")) {
+//         if(click.classList.contains(".modal") || click.classList.contains(".arrow")){
+//             closeModal();
+//         }
+//     }
+// });
 
 // ================================= //
 //  Navigate between cards in modal  //

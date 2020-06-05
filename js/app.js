@@ -6,7 +6,7 @@ const overlay = document.querySelector(".overlay");
 const modalContainer = document.querySelector(".modal-content");
 const modalClose = document.querySelector(".modal-close");
 const body = document.querySelector("body");
-let index = [0];
+let index = 0;
 
 // ====================== //
 //   Fetch data from API  //
@@ -34,7 +34,7 @@ function displayEmployees(employeeData) {
             <div class="card" data-index="${index}">
                 <img class="avatar" src="${picture.large}" />
                 <div class="text-container">
-                    <h2 class="name">${name.first} ${name.last}</h2>
+                    <h2 class="cardName">${name.first} ${name.last}</h2>
                     <p class="email">${email}</p>
                     <p class="address">${city}</p>
                 </div>
@@ -49,7 +49,10 @@ function displayEmployees(employeeData) {
 //   Display Modal  //
 // ================ //
 
-function displayModal(index) {
+function displayModal() {
+    if (!employees[index]) {
+        return;
+    }
     // use object destructuring make our template literal cleaner
     let { name, dob, phone, email, location: { city, street, state, postcode}, picture } = employees[index];
 
@@ -58,7 +61,7 @@ function displayModal(index) {
     const modalHTML = `
         <img class="avatar" src="${picture.large}" />
         <div class="text-container">
-            <h2 class="name">${name.first} ${name.last}</h2>
+            <h2 class="modalName">${name.first} ${name.last}</h2>
             <p class="email">${email}</p>
             <p class="address">${city}</p>
             <hr />
@@ -73,6 +76,29 @@ function displayModal(index) {
     body.classList.add("gray");
     modalContainer.innerHTML = modalHTML;
     console.log(index);
+
+    // =================================== //
+    //   Alternative option to .innerHTML  //
+    // =================================== //
+
+    // const modal = new DocumentFragment();
+    
+    // const avatar = document.createElement('img');
+    // avatar.classList.add('avatar');
+    // avatar.src = picture.large;
+    // modal.appendChild(avatar);
+
+    // ... add all other elements here ... WITH TEXTCONTENT!!!
+    
+    // create email element
+    // const emailEl = document.createElement('p');
+    // emailEl.classList.add('email');
+    // emailEl.textContent = email;
+    // modal.appendChild(emailEl);
+
+    // remove current modal and append new modal to DOM
+    // modalContainer.innerHTML = '';
+    // modalContainer.appendChild(modal);
 }
 
 gridContainer.addEventListener('click', e => {
@@ -81,35 +107,40 @@ gridContainer.addEventListener('click', e => {
     
         // select the card element based on its proximity to actual element clicked
         const cardIndex = e.target.closest(".card");
-        index = cardIndex.getAttribute('data-index');
+        index = parseInt(cardIndex.getAttribute('data-index'));
+        if(typeof index !== "number") {
+            return; 
+        }
     
         displayModal(index);
-
-        function displayPrev() {
-            displayModal([index-1]);
-        }
-    
-        function displayNext() {
-            displayModal([index+1]);
-        }
-    
-        const leftArrow = document.querySelector(".left");
-        const rightArrow = document.querySelector(".right");
-    
-        leftArrow.addEventListener("click", () => {
-            if (employees[index] > 0) {
-                displayPrev();
-            } else {
-                displayModal(employees[11]);
-            }
-    
-        });
-        
-        rightArrow.addEventListener("click", displayNext);
     }
 });
 
+// ================================= //
+//  Navigate between cards in modal  //
+// ================================= //
 
+function displayPrev() {
+    index -= 1;
+    if (index < 0) {
+        index = employees.length - 1;
+    }
+    displayModal(index);
+}
+
+function displayNext() {
+    index += 1;
+    if (index > employees.length - 1) {
+        index = 0;
+    }
+    displayModal(index);
+}
+
+const leftArrow = document.querySelector(".left");
+const rightArrow = document.querySelector(".right");
+
+leftArrow.addEventListener("click", displayPrev);
+rightArrow.addEventListener("click", displayNext);
 
 function closeModal() {
     overlay.classList.add("hidden");
@@ -117,45 +148,34 @@ function closeModal() {
 }
 
 modalClose.addEventListener('click', closeModal);
-// overlay.addEventListener('click', () => {
-//     const click = e.target;
-//     if (!overlay.classList.contains("hidden")) {
-//         if(click.classList.contains(".modal") || click.classList.contains(".arrow")){
-//             closeModal();
-//         }
-//     }
-// });
-
-// ================================= //
-//  Navigate between cards in modal  //
-// ================================= //
-
-
 
 // ========== //
 //   Search   //
 // ========== //
 
 let search = document.getElementById('search');
-// let card = document.getElementsByClassName('card');
-let empName = document.getElementsByClassName('name');
 
 search.addEventListener('keyup', () => {
+    let cards = document.getElementsByClassName('card');
+    let empNames = document.getElementsByClassName('cardName');
+    console.log(cards);
+    console.log(empNames);
     const input = search.value.toLowerCase();
 
-    for (let i = 0; i < empName.length; i += 1) {
-        if (empName[i].textContent.toLowerCase().indexOf(input) > -1) {
-            card[i].style.display = "";
+    for (let i = 0; i < empNames.length; i += 1) {
+        if (empNames[i].textContent.toLowerCase().indexOf(input) > -1) {
+            cards[i].style.display = "";
             } else {
-            card[i].style.display = "none";
+            cards[i].style.display = "none";
             }
     }
 });
 
 search.addEventListener('search', () => {
+    let cards = document.getElementsByClassName('card');
     if (event.target.value === '') {
-      for (let i = 0; i < card.length; i += 1) {
-        card[i].style.display = "";
+      for (let i = 0; i < cards.length; i += 1) {
+        cards[i].style.display = "";
       }
     }
-  });
+});
